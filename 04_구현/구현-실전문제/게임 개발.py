@@ -33,7 +33,8 @@ for i in range(n):
 def turn_left():
     global direction
     direction -= 1
-    if direction == -1:
+    # 반 시계방향을 위해서.
+    if direction == -1: #방향이 -1인경우 -->' 서쪽' 방향으로 정의 해라.
         direction = 3
 
 # 시뮬레이션 시작
@@ -44,14 +45,14 @@ while True:
     turn_left()
     nx = x + dx[direction]
     ny = y + dy[direction]
-    # 회전한 이후 정면에 가보지 않은 칸이 존재하는 경우 이동
+    
+    # "회전한 이후" 정면에 가보지 않은 칸이 존재하는 경우 이동
     if d[nx][ny] == 0 and array[nx][ny] == 0:
         d[nx][ny] = 1
         x = nx
         y = ny
         count += 1
         turn_time = 0
-        print(d)
         continue
     # 회전한 이후 정면에 가보지 않은 칸이 없거나 바다인 경우
     else:
@@ -64,7 +65,6 @@ while True:
         if array[nx][ny] == 0:
             x = nx
             y = ny
-            print(d)
         # 뒤가 바다로 막혀있는 경우
         else:
             break
