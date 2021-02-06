@@ -21,7 +21,7 @@ p,149 ~ p, 151
 [ 출력 조건 ]
 - 한 번에 만들 수 있는 아이스크림의 개수를 출력한다.
 """
-# 앞에 배웠던 내용으로 조합하여 풀어봤다..
+# 앞에 배웠던 내용으로 조합하여 풀어봤다.
 
 # N, M을 공백을 기준으로 구분하여 입력 받기
 n, m = map(int,input().split())
@@ -35,49 +35,51 @@ for k in range(n):
 # 상 우 하 좌 정의 .
 dx =[-1, 0, 1, 0]
 dy =[0, 1, 0, -1]
-    
+  
+
+# 맵, x,y좌표 값, 방문 정보를 인수로 넘겨 받음.
 def dfs(graph, i, j, visited):    
     print(i,j)
     print(sep='\n')
-    for k in range(n):
+    for k in range(4): # 상 우 하 좌 붙어있는지 검사. 
         x = i + dx[k]
         y = j + dy[k]
         
         # 주어진 범위를 벗어나는 경우에는 무시 .
-        if y < 0 or y >= m or x < 0 or x >= n:
+        if x < 0 or x >= n or y < 0 or y >= m:
             continue
         # 칸막이 부분, [방문했던 부분]은 무시 .
         if graph[x][y] == 1 or visited[x][y] == True:
             continue
-        # 범위를 벗어 나지 않는 경우. 
-        # 해당 노드 방문 처리 .
+        
+        # 범위를 벗어 나지 않는 경우. 해당 노드 방문 처리 .
         else:
             visited[x][y] = True
             dfs(graph, x, y, visited)
 
-result = 0
+
+
+# 각 노드가 [ 방문된 정보를 리스트 자료형으로 표현 ](2차원 리스트)
 visited = []
 for i in range(n):
     visited.append([False] * m)
 
-print(graph)
-print(visited)
 
-# 모든 노드에 대하여 음료수 채우기.
+# 만들수 있는 " 얼음덩이 수 "를 세기위한 변수 .
 count = 0
 
 for i in range(n):
     for j in range(m):
         if graph[i][j] == 0 and visited[i][j] == False:
             count += 1
-            visited[i][j] = True
+            visited[i][j] = True #0,0 인덱스는 바로 방문 처리.
             dfs(graph, i, j, visited)
 
-print(count)
+print("만들수 있는 얼음 덩이 :", count)
 
 
 #------------------------------------------------------------------
-# 책정답 5-10.py 
+# ** 책정답 ** 5-10.py 
 
 # N, M을 공백을 기준으로 구분하여 입력 받기
 n, m = map(int, input().split())
@@ -112,6 +114,6 @@ for i in range(n):
         if dfs(i, j) == True:
             result += 1
 
-print(result) # 정답 출력
+print("만들수 있는 얼음 덩이 :", count)
 
 
