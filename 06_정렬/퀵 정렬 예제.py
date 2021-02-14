@@ -39,7 +39,8 @@ def quick_sort(array, start, end):
         while(left <= end and array[left] <= array[pivot]):
             left += 1
         # 피벗보다 '작은' 데이터를 찾을 때까지 반복
-        while(right > start and array[right] >= array[pivot]):
+        # 피벗보다 [ 배열 right인덱스 값 ]이 더 크다면 아래 수행.
+        while(right > start and array[right] >= array[pivot]): 
             right -= 1
         
         if(left > right): # 엇갈렸다면 [ 작은 ] 데이터와 피벗을 교체
@@ -49,25 +50,20 @@ def quick_sort(array, start, end):
             array[left], array[right] = array[right], array[left]
         print(left,right)
         print(array) # 선택된 것을 확인하기 위한 출력문.
-    print("또다른 시작과 끝,",start,right-1)
-    print("시작, 끝",right+1, end)
+   
     # [ 분할 이후 ] 왼쪽 부분과 오른쪽 부분에서 각각 정렬 수행
-    '''
-    # 나중에 0 1 [2] 4 3 에서 3 번인덱스 2번인덱스를 엇갈려 교체하여도
-    # 피벗은 그대로가 되어서 [ 그때 ] 3번 인덱스가 피벗이되고 5번째 인덱스까지 끼어서
-    # 정렬을 수행하면 정상적으로 엇갈려서 right 인덱스를 피벗에 넣어주면
-    #  3 4 5 로 정렬이 된다.
-    '''
+    
     quick_sort(array, start, right - 1)
     # 아래는 [ 오른쪽 부분에서 ] 정렬 수행.
     quick_sort(array, right +1, end) # 두번째 인수 right +1 or left로 두어도 된다.
 
 quick_sort(array, 0, len(array) - 1)
-print(array)
+print("퀵 정렬 수행된 결과:",array)
 
 #--------------------------------------------------------------------------------
-#6.5.py [ 파이썬의 장점을 살린 ] 퀵 정렬 소스코드 (p, 169)
+#6.5.py [ 파이썬의 **장점**을 살린 ] 퀵 정렬 소스코드 (p, 169)
 
+# 단 피벗과 데이터를 비교하는 비교 연산 횟수가 증가하므로 [ 시간 면에서는 조금 비효율적 ]
 array = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8]
 
 def quick_sort(array):
@@ -75,13 +71,14 @@ def quick_sort(array):
     if len(array) <= 1:
         return array
 
-    pivot = array[0] # 피벗은 첫 번째 원소
-    tail = array[1:] # 피벗을 제외한 리스트
+    pivot = array[0] # 피벗은 '첫' 번째 원소
+    tail = array[1:] # [ 피벗을 제외 ]한 리스트
 
-    left_side = [x for x in tail if x <= pivot] # 분할된 왼쪽 부분
-    right_side = [x for x in tail if x > pivot] # 분할된 오른쪽 부분
-
-    # 분할 이후 왼쪽 부분과 오른쪽 부분에서 각각 정렬을 수행하고, 전체 리스트를 반환
+    left_side = [x for x in tail if x <= pivot] # 분할된 [왼쪽] 부분--> 피벗보다 작거나 같은것.
+    print(left_side)
+    right_side = [x for x in tail if x > pivot] # 분할된 오른쪽 부분--> 피벗보다 큰 
+    print(right_side)
+    # 분할 이후 왼쪽 부분과 오른쪽 부분에서 각각 정렬을 수행하고, [ 전체 리스트를 반환 ]
     return quick_sort(left_side) + [pivot] + quick_sort(right_side)
 
-print(quick_sort(array))
+print("퀵 정렬 수행된 결과:", quick_sort(array))
