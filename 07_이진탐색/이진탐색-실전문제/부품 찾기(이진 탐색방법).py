@@ -26,14 +26,17 @@
 3
 5 7 9   
 ------------------------------------------------------------------------------------
-
-
+★ 이진 탐색은 [ 배열 내부의 데이터가 정렬되어 있어야만 ] 
+  사용할 수 있는 알고리즘.
 """
+# [ ★ 책 정답 ] 7-5.py  [ 이진 탐색 방법 ]을 이용. p, 198
+
 # 이진 탐색 소스코드 구현 (반복문)
 def binary_search(array, target, start, end):
     while start <= end:
         mid = (start + end) // 2
-        # 찾은 경우 중간점 인덱스 반환
+        
+        # [ 찾은 경우 ] 중간점 인덱스 반환
         if array[mid] == target:
             return mid
         
@@ -41,22 +44,33 @@ def binary_search(array, target, start, end):
         elif array[mid] > target:
             end = mid - 1 #[ 중간점 이 후의 값은 ] 필요 없으니, '끝점'을 [ 중간점 -1 로 옮긴다 ].
             
-        # 중간점의 값보다 찾고자 하는 값이 큰 경우 오른쪽 확인
+        # 중간점의 값보다 찾고자 하는 값이 [ 큰 경우 ] 오른쪽 확인
         else:
             start = mid + 1
     return None  # 아무것도 찾지 않는다면 None을 반환.
 
+# N(가게의 부품 개수) 입력
 n = int(input())
-array1 = list(map(int,input().split()))
 
+# 가게에 있는 [ 전체 부품 번호를 ] ' 공백을 기준 '으로 구분하여 입력
+array = list(map(int, input().split()))
+array.sort() # [ 이진 탐색을 수행 ]하기 위해 [ 사전에 정렬 수행 ]
+
+# M(손님이 확인 요청한 부품 개수) 입력
 m = int(input())
-target = list(map(int,input().split()))
 
-print(array1)
-print(target)
-result = binary_search(array1, target, 0, n-1)
-if result == None:
-    print("원소가 존재하지 않습니다.")
-else:
-    print(result + 1)
+# 손님이 [ 확인 요청한 전체 부품 번호를 ] ' 공백을 기준 '으로 구분하여 입력
+target = list(map(int, input().split()))
 
+# 손님이 확인 요청한 [ 부품 번호를 하나씩 확인 ]
+for i in target:
+    # [ 해당 부품이 존재하는지 ] 확인
+    result = binary_search(array, i, 0, n - 1)
+    
+    if result != None: # 손님이 요청한 원소가 존재한다면.
+        print('yes', end=' ')
+    else:
+        print('no', end=' ')
+
+       
+       
