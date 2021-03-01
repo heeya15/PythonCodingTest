@@ -54,32 +54,7 @@ d[1] = max(array[0], array[1]) # [ 두 번째 ] 식량저장창고 까지의 얻
 for i in range(2, n):
     d[i] = max(d[i - 1], d[i - 2] + array[i])
     print(d[i])
+    
 # 계산된 결과 출력
 print(d[n - 1])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
