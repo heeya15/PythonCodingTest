@@ -1,0 +1,9 @@
+cd  C:\Users\choon\OneDrive\Desktop\PythonCodingTest\09_최단 경로\최단경로-실전문제
+python "전보.py"
+( 입력 예시 )                                
+3 2 1
+1 2 4
+1 3 2
+
+( 출력 예시 ) 
+   2  4
