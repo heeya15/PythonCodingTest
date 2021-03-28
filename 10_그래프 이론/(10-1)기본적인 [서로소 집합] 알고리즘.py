@@ -24,7 +24,7 @@ ex) 집합{1,2}, {3,4} 는 '서로소 관계'다.
 - 또한 실제로 구현할 때는 A'와 B'중에서 [ 더 번호가 작은 원소 ]가 '부모 노드'가 되도록 구현
 """
 
-
+# 책 정답 10-1.py (p, 273 )
 # 특정 원소가 속한 집합을 찾기
 def find_parent(parent, x):
     # 루트 노드가 아니라면, 루트 노드를 찾을 때까지 재귀적으로 호출
@@ -54,7 +54,7 @@ for i in range(e):
     a, b = map(int, input().split())
     union_parent(parent, a, b)
 
-# 각 원소가 속한 집합 출력하기
+# [ 각 원소가 속한 ] '집합' 출력하기
 print('각 원소가 속한 집합: ', end='')
 for i in range(1, v + 1):
     print(find_parent(parent, i), end=' ')
