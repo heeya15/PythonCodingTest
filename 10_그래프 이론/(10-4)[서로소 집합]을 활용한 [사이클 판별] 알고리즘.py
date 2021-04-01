@@ -22,7 +22,7 @@ def find_parent(parent, x):
     if parent[x] != x:
         parent[x] = find_parent(parent, parent[x])
     return parent[x]
-
+ 
 # 두 원소가 [ 속한 집합 ]을 '합치기' --> 큰 번호를 갖는 노드를 [ 작은 번호 노드로 ] 부모 변경.
 def union_parent(parent, a, b):
     a = find_parent(parent, a)

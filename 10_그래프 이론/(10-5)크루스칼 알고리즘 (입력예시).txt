@@ -1,0 +1,17 @@
+cd C:\Users\choon\OneDrive\Desktop\PythonCodingTest\10_그래프 이론
+python "(10-5)크루스칼 알고리즘.py"
+
+( 입력 예시 )
+7 9
+1 2 29
+1 5 75
+2 3 35
+2 6 34
+3 4 7
+4 6 23
+4 7 13
+5 6 53
+6 7 25
+
+ (출력 예시 )
+   159
