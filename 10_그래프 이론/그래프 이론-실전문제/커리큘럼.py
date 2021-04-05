@@ -38,10 +38,17 @@
 
 - [ N개의 강의 ]에 대하여 수강하기까지 걸리는 [ 최소 시간 ]을 '한 줄에 하나씩 출력'한다.
 
+( 핵심 아이디어 )
+- [ 첫번째는 ] 강의시간, [ 두번째는 ] 선수과목 인덱스, -1은 종료
+  해당 과목을 수강하기 까지 최소시간 구하기.
+  
+- 리스트의 경우, 단순히 대입 연산을 하면 값이 변경될 때 문제가 발생할 수 있기 때문에
+  리스트의 값을 복제해야 할 때는 deepcopy() 함수를 사용한다.
 """
+
 # 책 정답 10-9.py (p, 304 ~ 305)
 from collections import deque
-import copy
+import copy # 리스트 복사 
 
 # [ 노드의 개수(강의 수) ] 입력받기
 v = int(input())
@@ -59,16 +66,15 @@ time = [0] * (v + 1)
 for i in range(1, v + 1):
     data = list(map(int, input().split()))
     time[i] = data[0] # 첫 번째 수는 [ 시간 정보 ]를 담고 있음
-    for x in data[1:-1]: # 인덱스 '1'부터 '-2'요소 까지 . ex) 10 1 -1 이면 '1' 만 출력. 
+   
+    for x in data[1:-1]: # 인덱스 '1'부터 '-2'요소(끝 원소 제외한 나머지) 까지 . ex) 10 1 -1 이면 '1' 만 출력. 
         indegree[i] += 1
-        print(indegree)
-        graph[x].append(i)
-        print(graph)
+        graph[x].append(i) # 방향성 도식화
         
 
 # 위상 정렬 함수
 def topology_sort():
-    # deepcopy함수를 통하여 'time 리스트' 변수의 값을 [ 복사 ].
+    # deepcopy함수를 통하여 --> 'time 리스트' 변수의 값을 [ 복사 ].
     result = copy.deepcopy(time) # 알고리즘 [ 수행 결과 ]를 담을 리스트
     q = deque() # '큐 기능'을 위한 deque 라이브러리 사용
 
@@ -76,7 +82,8 @@ def topology_sort():
     for i in range(1, v + 1):
         if indegree[i] == 0:
             q.append(i)
-
+    
+    
     # 큐가 '빌 때까지' 반복
     while q:
         # 큐에서 원소 꺼내기
@@ -91,6 +98,5 @@ def topology_sort():
 
     # 위상 정렬을 수행한 [ 결과 출력 ]
     for i in range(1, v + 1):
-        print(result[i])
-
+        print(i,"번 강의 수강 최소 시간: ",result[i])
 topology_sort()
