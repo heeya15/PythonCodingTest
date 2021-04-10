@@ -21,7 +21,7 @@
 
 
 """
-# 책 정답 11-3.py ( p, 508 )
+# 책 정답 11-4.py ( p, 511 )
 n = int(input()) # 동전 수 입력 
 data = list(map(int, input().split())) # 동전 화폐 단위를 입력.
 data.sort() # 오름 차순으로 정렬.
