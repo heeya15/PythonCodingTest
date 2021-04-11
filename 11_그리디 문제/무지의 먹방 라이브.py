@@ -1,35 +1,31 @@
-# -*- coding: utf-8 -*-
 """
-(실전 문제) 만들 수 없는 금액 p, 314 --> 풀지 못함..답을 봤다.
 
-- 동네 편의점의 주인인 진구는[ N개의 동전 ]을 가지고 있습니다. 
-
-- 이때 [ N개의 동전 ]을 이용하여 [ 만들수 없는 양의 정수 금액 ] 중 [ 최솟값을 구하는 프로그램 ]을 작성하세요.
-
-
-[ 입력 조건 ]
-- '첫째 줄'에는 '동전의 개수'를 나타내는 [ 양의 정수 N이 ]주어집니다. (1 <= N <= 1,000)
-
-- '둘째 줄'에는 각 동전의 화폐 단위를 나타내는 [ N개의 자연수 ]가 주어지며,
-   각 자연수는 공백으로 구분합니다. 이때, 각 화폐 단위는 1,000,000 이하의 자연수 입니다.
-   
-[ 출력 조건 ]
-- 첫째 줄에 주어진 동전들로 [ 만들 수 없는 양의 정수 ] 금액 중 [ 최솟값을 ] 출력합니다.
-
-( 입력 예시 )                        ( 출력 예시 )
-  5                                    8
-  3 2 1 1 9
 
 """
-n = input()
-data = list(map(int,input().split()))
+import heapq
 
-data.sort()
-target = 1
-     
-for i in data:
-    if target < i:
-       break
-    target += i
-print(target)
+def solution(food_times, k):
+    # 전체 음식을 먹는 시간보다 k가 크거나 같다면 -1
+    if sum(food_times) <= k:
+        return -1
 
+    # 시간이 작은 음식부터 빼야 하므로 우선순위 큐를 이용
+    q = []
+    for i in range(len(food_times)):
+        # (음식 시간, 음식 번호) 형태로 우선순위 큐에 삽입
+        heapq.heappush(q, (food_times[i], i + 1))  
+
+    sum_value = 0 # 먹기 위해 사용한 시간
+    previous = 0 # 직전에 다 먹은 음식 시간
+    length = len(food_times) # 남은 음식의 개수
+
+    # sum_value + (현재의 음식 시간 - 이전 음식 시간) * 현재 음식 개수와 k 비교
+    while sum_value + ((q[0][0] - previous) * length) <= k:
+        now = heapq.heappop(q)[0]
+        sum_value += (now - previous) * length
+        length -= 1 # 다 먹은 음식 제외
+        previous = now # 이전 음식 시간 재설정
+
+    # 남은 음식 중에서 몇 번째 음식인지 확인하여 출력
+    result = sorted(q, key=lambda x: x[1]) # 음식의 번호 기준으로 정렬
+    return result[(k - sum_value) % length][1]
