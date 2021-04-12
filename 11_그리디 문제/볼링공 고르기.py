@@ -34,11 +34,40 @@
 8 5
 1 5 4 3 2 4 5 2                           25
 """
+import time
+
+
+# 내가 푼 방법. -- 먼가 2중 for문을 쓰니 조금 찝찝하지만, 시간적으로는 1초대가 나옴.
+start = time.time()
+
+n, m = list(map(int,input().split())) # 볼링공의 개수, 볼링공의 [ 최대 무게 ] 입력.
+k = list(map(int,input().split())) # 볼링공 무게를 입력.
+
+result = 0
+
+# a가 먼저 하나를 고른 뒤 [ 나머지 중에 b가 고를수 있는 경우의 수 ]를 더해줌.
+# 같은 무게라도 번호가 다르면 다른 공으로 생각한다고 했기 때문에, 그냥 차례로 검사하면 된다
+for i in range(len(k)):
+    for j in range(i+1,len(k)):
+        if k[i] == k[j]: # 같은 무게인 경우는 제외함.
+            continue
+        result +=1
+        
+print(result)   
+
+end = time.time()
+print("수행시간 :", end - start)
+
+#------------------------------------------------------------------------------
+
+# 책 정답 11-5.py ( p, 512 ) 
+start = time.time()
 
 n, m = map(int, input().split()) # 볼링공의 개수, 볼링공의 [ 최대 무게 ] 입력.
-data = list(map(int, input().split()))
+data = list(map(int, input().split())) # 볼링공 무게를 입력.
 
-# 1부터 10까지의 무게를 담을 수 있는 리스트
+# 1부터 10까지의 [ 무게를 담을 수 있는 ] 리스트 --> 문제에서 무게를 최대 10까지로 설정 가능하게 조건줌.
+# 즉, 각 무게별로 [ 볼링공이 몇 개가 존재하는지 기록 ]할 수 있다. 
 array = [0] * 11
 
 for x in data:
@@ -46,10 +75,14 @@ for x in data:
     array[x] += 1
 
 result = 0
+
 # 1부터 m(최대무게) 까지의 [ 각 무게에 대하여 처리 ]
 for i in range(1, m + 1):
     n -= array[i] # [ 무게가 i인 ] 볼링공의 개수(A가 선택할 수 있는 개수) 제외
     result += array[i] * n # B가 선택하는 경우의 수와 곱해주기
 
 print(result)
+
+end = time.time()
+print("수행시간 :", end - start)
 
